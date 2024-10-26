@@ -1,8 +1,69 @@
 
 .home-container {
+    display: flex;
+    justify-content: center;
     background-color: #141414;
-    height: 100vh; // Set to 100% of the viewport height
-    width: 100vw;  // Set to 100% of the viewport width
+    height: 100vh;
+    width: 100vw;  
     margin: 0;
     padding: 0;
 }  
+
+#dashboard{
+    margin-top: 20px;
+    width: 98vw;
+    height: 25vh;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+#upload-card-container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+#upload-card {
+    justify-content: flex-end;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 49vw;
+    height: 25vh;
+    border-radius: 20px;
+    //border-top-right-radius: 20px;
+    //border-bottom-right-radius: 20px;
+    cursor: pointer;
+    background-color: #1d1d1d;
+}
+
+.uploadsvg{
+    height: 100%;
+    max-height: 50px;
+    width: auto;
+    margin-bottom: 20px;
+}
+
+#upload-save-text, #upload-save-desc{
+    font-family: 'Fleshandblood', sans-serif;
+    color: white;
+}
+
+#upload-save-text{
+
+}
+
+#upload-save-desc{
+
+}
+
+#instructions-upload-card{
+    justify-content: flex-end;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 49vw;
+    height: 25vh;
+    padding: 20px;
+}
