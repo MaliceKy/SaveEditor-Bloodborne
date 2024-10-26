@@ -1,0 +1,51 @@
+mat-toolbar {
+    @font-face {
+        font-family: 'Fleshandblood';
+        src: url('/assets/Fleshandblood-MVA5x.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    background-color: #141414;
+    padding-top: 15px;
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+
+    .icon {
+        height: 100%;
+        max-height: 65px;
+        width: auto;
+    }
+
+    .logo-text {
+        color: white;
+        font-family: 'Fleshandblood', sans-serif;
+        padding-top: 45px;
+        font-size: 35px;
+    }
+
+    .spacer {
+        flex-grow: 1;
+    }
+
+    button {
+        font-family: 'Fleshandblood', sans-serif;
+        color: #ff3658;
+        margin-right: 5px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center; /* Center text */
+    }
+
+    button:hover {
+        background-color: #232323;
+    }
+}
