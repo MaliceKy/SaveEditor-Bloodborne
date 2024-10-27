@@ -5,6 +5,10 @@
     height: 100%;
 }
 
+.no-underline {
+    text-decoration: none;
+}
+
 #img-banner-container {
     position: relative;
     width: 100%;
@@ -112,6 +116,16 @@
     padding: 10px;
     border-radius: 25px;
     cursor: pointer;
+}
+
+#github-container:hover,
+#x-container:hover {
+    background-color: #1414149a;
+    border: 1px solid #84C0C6;
+
+    .social-handles{
+        color: #84C0C6;
+    }
 }
 
 .github-icon,
