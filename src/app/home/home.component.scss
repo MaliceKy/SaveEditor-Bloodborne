@@ -1,69 +1,132 @@
-
-.home-container {
-    display: flex;
-    justify-content: center;
+#home-container {
+    position: relative;
+    width: 100%;
     background-color: #141414;
-    height: 100vh;
-    width: 100vw;  
-    margin: 0;
-    padding: 0;
-}  
-
-#dashboard{
-    margin-top: 20px;
-    width: 98vw;
-    height: 25vh;
-    border-radius: 20px;
-    padding: 20px;
-}
-
-#upload-card-container{
-    display: flex;
-    justify-content: flex-end;
-}
-
-#upload-card {
-    justify-content: flex-end;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 49vw;
-    height: 25vh;
-    border-radius: 20px;
-    //border-top-right-radius: 20px;
-    //border-bottom-right-radius: 20px;
-    cursor: pointer;
-    background-color: #1d1d1d;
-}
-
-.uploadsvg{
     height: 100%;
-    max-height: 50px;
-    width: auto;
-    margin-bottom: 20px;
 }
 
-#upload-save-text, #upload-save-desc{
-    font-family: 'Fleshandblood', sans-serif;
-    color: white;
+#img-banner-container {
+    position: relative;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    overflow: hidden;
 }
 
-#upload-save-text{
-
+.uploadsvg {
+    width: 100%;
+    max-height: 700px;
+    min-height: 500px;
+    height: auto;
+    object-fit: cover;
+    object-position: center bottom;
+    display: block;
 }
 
-#upload-save-desc{
-
+/* Top vignette overlay */
+.vignette-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20%;
+    background: linear-gradient(to bottom, #141414, transparent);
+    pointer-events: none;
+    z-index: 1;
 }
 
-#instructions-upload-card{
-    justify-content: flex-end;
+/* Side vignettes with smooth transition */
+#img-banner-container::before,
+#img-banner-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 15%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#img-banner-container::before {
+    left: 0;
+    background: linear-gradient(to right, #141414 40%, transparent);
+}
+
+#img-banner-container::after {
+    right: 0;
+    background: linear-gradient(to left, #141414 40%, transparent);
+}
+
+@media screen and (min-width: 1200px) {
+    #img-banner-container::before,
+    #img-banner-container::after {
+        opacity: 0.5;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    #img-banner-container::before,
+    #img-banner-container::after {
+        opacity: 1;
+    }
+}
+
+#title-container {
+    position: absolute;
+    top: 20vh; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+}
+
+.BB-Text-Logo {
+    width: 500px;
+    max-width: 90vw; /* Responsive width */
+}
+
+#socials-container {
+    position: absolute;
+    left: 50%;
+    top: 35vh;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    width: 49vw;
-    height: 25vh;
-    padding: 20px;
+    align-items: center;
+    gap: 20px;
+    z-index: 2;
+}
+
+#github-container,
+#x-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #1414149a;
+    border: 1px solid white;
+    padding: 10px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.github-icon,
+.x-social-media-icon {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.social-handles {
+    padding-top: 3px;
+    padding-right: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+    font-family: 'Fleshandblood', sans-serif;
 }

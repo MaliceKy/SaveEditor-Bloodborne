@@ -1,0 +1,82 @@
+
+.dashboard-container {
+    display: flex;
+    justify-content: center;
+    background-color: #141414;
+    height: 100vh;
+    width: 100vw;  
+    margin: 0;
+    padding: 0;
+}  
+
+#dashboard{
+    margin-top: 20px;
+    width: 98vw;
+    height: 25vh;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+#upload-card-container{
+    display: flex;
+    justify-content: flex-end;
+}
+
+#upload-card {
+    justify-content: flex-end;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 49vw;
+    height: 25vh;
+    border-radius: 20px;
+    //border-top-right-radius: 20px;
+    //border-bottom-right-radius: 20px;
+    cursor: pointer;
+    background-color: #1d1d1d;
+    transition: 0.3s;
+}
+
+#upload-card:hover {
+    background-color: #2d2d2d;
+}
+
+#upload-card:hover .uploadsvg {
+    animation: bounce 0.6s; /* Apply the bounce animation on hover */
+}
+
+.uploadsvg{
+    height: 100%;
+    max-height: 50px;
+    width: auto;
+    margin-bottom: 20px;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0); /* No movement at these keyframes */
+    }
+    40% {
+        transform: translateY(-15px); /* Move up */
+    }
+    60% {
+        transform: translateY(-7px); /* Move slightly up */
+    }
+}
+
+#upload-save-text, #upload-save-desc{
+    font-family: 'Fleshandblood', sans-serif;
+    color: white;
+}
+
+#instructions-upload-card{
+    justify-content: flex-end;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 49vw;
+    height: 25vh;
+    padding: 20px;
+}
