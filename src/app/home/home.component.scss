@@ -54,7 +54,8 @@
 
 .BB-Text-Logo {
     width: 500px;
-    max-width: 90vw; /* Responsive width */
+    max-width: 90vw;
+    user-select: none;
 }
 
 #socials-container {
@@ -67,6 +68,7 @@
     justify-content: center;
     align-items: center;
     gap: 20px;
+    user-select: none;
     z-index: 2;
 }
 
