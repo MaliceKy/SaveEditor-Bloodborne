@@ -111,11 +111,8 @@
     font-family: 'Fleshandblood', sans-serif;
 }
 
-#card-multi-grid-container {
-    display: grid;
-    grid-template-columns: 1fr; /* Default to 1x4 on mobile */
-    gap: 20px;
-    padding: 20px;
+#project-overview{
+    background-color: #141414;
 }
 
 #about-header {
@@ -131,67 +128,4 @@
     align-items: center;
     margin-right: 5vw;
     margin-left: 5vw;
-}
-
-/* 2x2 grid for large screens */
-@media (min-width: 768px) {
-    #card-multi-grid-container {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* 4x1 grid for very large screens */
-@media (min-width: 1200px) {
-    #card-multi-grid-container {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-#project-overview{
-    background-color: #141414;
-}
-
-#overview-card,
-#features-card,
-#how-card,
-#support-card {
-    background-color: #1c1c1c;
-    border: 1px solid #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    color: white;
-    font-family: 'Fleshandblood', sans-serif;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-#card-header {
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
-    font-size: 20px; /* Adjust as needed */
-    color: #ffffff; /* Set desired text color */
-    font-family: 'Fleshandblood', sans-serif; /* Apply specific font */
-    display: block;
-    font-weight: 600;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid white;
-    padding: 5px;
-}
-
-#card-desc {
-    margin-top: 5px; /* Remove default margin */
-    margin-bottom: 5px;
-    padding: 0; /* Remove default padding */
-    font-size: 15px; /* Adjust as needed */
-    color: #ffffff; /* Set desired text color */
-    font-family: 'Fleshandblood', sans-serif; /* Apply specific font */
-    display: block;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid white;
-    padding: 5px;
 }
