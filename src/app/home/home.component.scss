@@ -147,11 +147,15 @@
     }
 }
 
+#project-overview{
+    background-color: #141414;
+}
+
 #overview-card,
 #features-card,
 #how-card,
 #support-card {
-    background-color: #0e0e0e;
+    background-color: #1c1c1c;
     border: 1px solid #ffffff;
     border-radius: 10px;
     padding: 20px;
@@ -172,4 +176,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border-bottom: 1px solid white;
+    padding: 5px;
+}
+
+#card-desc {
+    margin-top: 5px; /* Remove default margin */
+    margin-bottom: 5px;
+    padding: 0; /* Remove default padding */
+    font-size: 15px; /* Adjust as needed */
+    color: #ffffff; /* Set desired text color */
+    font-family: 'Fleshandblood', sans-serif; /* Apply specific font */
+    display: block;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid white;
+    padding: 5px;
 }
