@@ -7,7 +7,14 @@ mat-toolbar {
     }
 
     background-color: #141414;
-    padding-top: 15px;
+    height: 70px;
+    position: fixed; /* Make it fixed */
+    top: 0; /* Stick to top */
+    left: 0; /* Stick to left */
+    width: 100%; /* Full width */
+    z-index: 1000; /* Ensure it stays on top of other content */
+    margin: 0;
+    transition: background-color 0.3s ease;
 
     .logo-container {
         display: flex;
@@ -37,8 +44,6 @@ mat-toolbar {
     button {
         font-family: 'Fleshandblood', sans-serif;
         color: #84C0C6;
-        margin-right: 5px;
-        margin-bottom: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
