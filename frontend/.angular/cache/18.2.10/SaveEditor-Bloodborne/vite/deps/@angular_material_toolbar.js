@@ -1,10 +1,10 @@
 import {
   MatCommonModule,
   Platform
-} from "./chunk-MKSVUUYR.js";
+} from "./chunk-K5MTZYGQ.js";
 import {
   DOCUMENT
-} from "./chunk-UDVLQFL4.js";
+} from "./chunk-65ZVYLSS.js";
 import {
   ChangeDetectionStrategy,
   Component,

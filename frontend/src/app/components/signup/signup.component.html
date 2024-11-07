@@ -1,17 +1,33 @@
 <div class="signup-container">
     <h2>Signup</h2>
-    <form>
+    <form [formGroup]="signupForm">
       <mat-form-field appearance="fill" class="signup-field">
         <mat-label>Username</mat-label>
-        <input matInput type="text" placeholder="Enter your username" />
+        <input matInput type="text" formControlName="username" placeholder="Enter your username" />
+        <mat-error *ngIf="signupForm.get('username')?.errors?.['required']">Username is required</mat-error>
       </mat-form-field>
   
       <mat-form-field appearance="fill" class="signup-field">
         <mat-label>Password</mat-label>
-        <input matInput type="password" placeholder="Enter your password" />
+        <input matInput type="password" formControlName="password" placeholder="Enter your password" />
+        <mat-error *ngIf="signupForm.get('password')?.errors?.['passwordStrength']">
+          {{signupForm.get('password')?.errors?.['passwordStrength']}}
+        </mat-error>
       </mat-form-field>
 
-      <button mat-raised-button color="primary" class="signup-btn">Signup</button>
-      <button mat-raised-button color="primary" class="signup-btn" type="button" (click)="openSigninDialog()">Back to Login</button>
+      <mat-form-field appearance="fill" class="signup-field">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput type="password" formControlName="password2" placeholder="Confirm your password" />
+        <mat-error *ngIf="signupForm.get('password2')?.errors?.['passwordMismatch']">
+          Passwords does not match
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" class="signup-btn" 
+              [disabled]="!signupForm.valid" 
+              (click)="signup()">Signup</button>
+      <button mat-raised-button color="primary" class="signup-btn" 
+              type="button" 
+              (click)="openSigninDialog()">Back to Login</button>
     </form>
 </div>  
