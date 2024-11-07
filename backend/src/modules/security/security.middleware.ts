@@ -12,7 +12,10 @@ import { SecuritySettings } from './security.settings';
  * 			  hasRole: a function that checks if the user has a role
  */
 export class SecurityMiddleware{
-	private static mongoDBService: MongoDBService = new MongoDBService(process.env.mongoConnectionString || "mongodb://localhost:27017");
+	private static mongoDBService: MongoDBService = new MongoDBService(
+		process.env.mongoConnectionString ||
+		  "mongodb+srv://Malice:1BSlsFGMcLeC18jR@bloodborne-saveeditor.fma0s.mongodb.net/?retryWrites=true&w=majority&appName=Bloodborne-SaveEditor"
+	  );
 	private static settings=new SecuritySettings();
 
 	/* decodeToken(token: string): UserLoginModel|undefined

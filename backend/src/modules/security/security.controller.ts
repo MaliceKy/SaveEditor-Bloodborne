@@ -14,7 +14,10 @@ import { SecuritySettings } from "./security.settings";
     */
 export class SecurityController {
 
-    private mongoDBService: MongoDBService = new MongoDBService(process.env.mongoConnectionString || "mongodb://localhost:27017");
+    private mongoDBService: MongoDBService = new MongoDBService(
+        process.env.mongoConnectionString ||
+          "mongodb+srv://Malice:1BSlsFGMcLeC18jR@bloodborne-saveeditor.fma0s.mongodb.net/?retryWrites=true&w=majority&appName=Bloodborne-SaveEditor"
+    );
     private settings:SecuritySettings=new SecuritySettings();
 
     /* makeToken(user: UserLoginModel): string
