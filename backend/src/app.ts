@@ -1,6 +1,10 @@
 import express from "express";
+import dotenv from "dotenv";
 import { ApiRouter } from "./router";
 import { MongoDBService } from "./modules/database/mongodb.service";
+
+// Load environment variables
+dotenv.config();
 
 class Application {
   public app: express.Application;
@@ -11,8 +15,7 @@ class Application {
     this.app = express();
     this.port = process.env.serverPort ? +process.env.serverPort : 3000;
     this.mongoDBService = new MongoDBService(
-      process.env.mongoConnectionString ||
-        "mongodb+srv://Malice:1BSlsFGMcLeC18jR@bloodborne-saveeditor.fma0s.mongodb.net/?retryWrites=true&w=majority&appName=Bloodborne-SaveEditor"
+      process.env.MONGO_CONNECTION_STRING || ""
     );
     this.app.use(express.urlencoded({ extended: false }));
     this.app.use(express.json());

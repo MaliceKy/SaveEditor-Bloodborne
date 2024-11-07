@@ -11,7 +11,7 @@
     * 			  defaultRoles: an array of strings that represents the default roles
     */
 export class SecuritySettings{
-    public database = "474";
+    public database = "BBSE";
     public collection = "users";
     public defaultRoles:string[]=["user"];
 }

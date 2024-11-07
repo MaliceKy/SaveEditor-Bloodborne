@@ -13,9 +13,9 @@
       "program": "${workspaceFolder}/src/app.ts",
       "preLaunchTask": "tsc: watch - tsconfig.json",
       "outFiles": ["${workspaceFolder}/build/**/*.js"],
-      "env":{
-        "mongoConnectionString":"mongodb+srv://Malice:1BSlsFGMcLeC18jR@bloodborne-saveeditor.fma0s.mongodb.net/?retryWrites=true&w=majority&appName=Bloodborne-SaveEditor",
-        "secret":"EncryptMe"
+      "env": {
+        "MONGO_CONNECTION_STRING": "${env:MONGO_CONNECTION_STRING}",
+        "SECRET": "${env:SECRET}"
       }
     }
   ]
