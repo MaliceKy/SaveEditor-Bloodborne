@@ -20,6 +20,9 @@ export class LoginComponent {
   openSignupDialog() {
     this.dialogRef.close();
     this.dialog.open(SignupComponent, {
+      width: '400px',
+      disableClose: true,
+      autoFocus: true,
     });
   }
 }

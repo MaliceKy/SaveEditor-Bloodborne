@@ -2,10 +2,13 @@ import { Component } from '@angular/core';
 import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { LoginComponent } from '../login/login.component';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { passwordMatchValidator, PasswordStrengthValidator } from './password-validators';
+import { LoginService } from '../../services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -15,6 +18,7 @@ import { passwordMatchValidator, PasswordStrengthValidator } from './password-va
     MatDialogModule, 
     MatFormFieldModule, 
     MatInputModule,
+    MatButtonModule,
     ReactiveFormsModule
   ],
   templateUrl: './signup.component.html',
@@ -29,26 +33,34 @@ export class SignupComponent {
 
   constructor(
     private dialog: MatDialog,
-    private dialogRef: MatDialogRef<SignupComponent>
+    private dialogRef: MatDialogRef<SignupComponent>,
+    private loginService: LoginService,
+    private router: Router
   ) {}
 
   openSigninDialog() {
     this.dialogRef.close();
-    this.dialog.open(LoginComponent, {
-    });
+    this.dialog.open(LoginComponent);
   }
 
-  signup() {
+  async signup() {
     if (!this.signupForm.valid) {
       return;
     }
     
-    const signupData = {
-      username: this.signupForm.value.username,
-      password: this.signupForm.value.password
-    };
-
-    console.log('Signup data:', signupData);
+    try {
+      const success = await this.loginService.register(
+        this.signupForm.value.username,
+        this.signupForm.value.password
+      );
+      
+      if (success) {
+        this.dialogRef.close();
+        // Navigation is handled in the login service
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      // You might want to add error handling UI here
+    }
   }
-
 }
