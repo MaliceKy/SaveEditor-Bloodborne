@@ -115,37 +115,58 @@ export class SecurityController {
         @async
     */
     public postRegister = async (req: express.Request, res: express.Response): Promise<void> => {
-        const user: UserLoginModel = { username: req.body.username, password: req.body.password,roles:this.settings.defaultRoles };
-        if (user.username == null || user.password == null || user.username.trim().length == 0 || user.password.trim().length == 0) {
+        const user: UserLoginModel = { 
+            username: req.body.username.toLowerCase(), // Convert to lowercase for consistency
+            password: req.body.password,
+            roles: this.settings.defaultRoles 
+        };
+
+        if (!user.username || !user.password || user.username.trim().length === 0 || user.password.trim().length === 0) {
             res.status(400).send({ error: "Username and password are required" });
-        } else {
-            try {
-                let result = await this.mongoDBService.connect();
-                if (!result) {
-                    res.status(500).send({ error: "Database connection failed" });
-                    return;
-                }
-                let dbUser: UserLoginModel | null = await this.mongoDBService.findOne(this.settings.database, this.settings.collection, { username: user.username });
-                if (dbUser) {
-                    throw { error: "User already exists" };
-                }
-                user.password = await this.encryptPassword(user.password);
-                result = await this.mongoDBService.insertOne(this.settings.database, this.settings.collection, user);
-                if (!result) {
-                    throw { error: "Database insert failed" };
-                }
-                dbUser = await this.mongoDBService.findOne(this.settings.database, this.settings.collection, { username: user.username });
-                if (!dbUser) {
-                    throw { error: "Database insert failed" };
-                }
-                dbUser.password = "****";
-                res.send({ token: this.makeToken(dbUser) });
-            } catch (err) {
-                console.error(err);
-                res.status(500).send(err);
-            } finally {
-                this.mongoDBService.close();
+            return;
+        }
+
+        // Add basic email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(user.username)) {
+            res.status(400).send({ error: "Invalid email format" });
+            return;
+        }
+
+        try {
+            let result = await this.mongoDBService.connect();
+            if (!result) {
+                res.status(500).send({ error: "Database connection failed" });
+                return;
             }
+
+            let dbUser: UserLoginModel | null = await this.mongoDBService.findOne(
+                this.settings.database, 
+                this.settings.collection, 
+                { username: user.username }
+            );
+
+            if (dbUser) {
+                res.status(409).send({ error: "User already exists" }); // Use 409 Conflict for duplicate
+                return;
+            }
+
+            user.password = await this.encryptPassword(user.password);
+            result = await this.mongoDBService.insertOne(this.settings.database, this.settings.collection, user);
+            if (!result) {
+                throw { error: "Database insert failed" };
+            }
+            dbUser = await this.mongoDBService.findOne(this.settings.database, this.settings.collection, { username: user.username });
+            if (!dbUser) {
+                throw { error: "Database insert failed" };
+            }
+            dbUser.password = "****";
+            res.send({ token: this.makeToken(dbUser) });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send(err);
+        } finally {
+            this.mongoDBService.close();
         }
     }
 

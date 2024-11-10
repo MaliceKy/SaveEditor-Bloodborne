@@ -2,9 +2,17 @@
     <h2>Signup</h2>
     <form [formGroup]="signupForm">
       <mat-form-field appearance="fill" class="signup-field">
-        <mat-label>Username</mat-label>
-        <input matInput type="text" formControlName="username" placeholder="Enter your username" />
-        <mat-error *ngIf="signupForm.get('username')?.errors?.['required']">Username is required</mat-error>
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="username" placeholder="Enter your email" />
+        <mat-error *ngIf="signupForm.get('username')?.errors?.['required']">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="signupForm.get('username')?.errors?.['email'] || signupForm.get('username')?.errors?.['pattern']">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="signupForm.get('username')?.errors?.['duplicateEmail']">
+          {{signupForm.get('username')?.errors?.['duplicateEmail']}}
+        </mat-error>
       </mat-form-field>
   
       <mat-form-field appearance="fill" class="signup-field">
@@ -24,8 +32,11 @@
       </mat-form-field>
 
       <button mat-raised-button color="primary" class="signup-btn" 
-              [disabled]="!signupForm.valid" 
-              (click)="signup()">Signup</button>
+              [disabled]="!signupForm.valid || isLoading" 
+              (click)="signup()">
+        <span *ngIf="!isLoading">Signup</span>
+        <mat-spinner *ngIf="isLoading" diameter="20" class="spinner"></mat-spinner>
+      </button>
       <button mat-raised-button color="primary" class="signup-btn" 
               type="button" 
               (click)="openSigninDialog()">Back to Login</button>

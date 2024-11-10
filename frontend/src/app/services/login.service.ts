@@ -91,14 +91,13 @@ export class LoginService {
       ).toPromise();
       
       if (response && response.token) {
-        this.token = `Bearer ${response.token}`;
+        this.token = response.token;
         this.loggedIn.next(true);
         return true;
       }
       return false;
     } catch (error) {
-      console.error('Registration failed:', error);
-      return false;
+      throw error;
     }
   }
 }
