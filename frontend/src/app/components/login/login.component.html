@@ -1,17 +1,39 @@
 <div class="login-container">
-    <h2>Login</h2>
-    <form>
-      <mat-form-field appearance="fill" class="login-field">
-        <mat-label>Email</mat-label>
-        <input matInput type="text" placeholder="Enter your Email" />
-      </mat-form-field>
-  
-      <mat-form-field appearance="fill" class="login-field">
-        <mat-label>Password</mat-label>
-        <input matInput type="password" placeholder="Enter your password" />
-      </mat-form-field>
-  
-      <button mat-raised-button color="primary" class="login-btn">Login</button>
-      <button mat-raised-button color="primary" class="login-btn" type="button" (click)="openSignupDialog()">Signup</button>
-    </form>
+  <button mat-icon-button class="close-button mobile-only" (click)="dialogRef.close()">
+    <mat-icon>close</mat-icon>
+  </button>
+    
+  <h2>Login</h2>
+  <form [formGroup]="loginForm">
+    <mat-form-field appearance="fill" class="login-field">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="username" placeholder="Enter your Email" />
+      <mat-error *ngIf="loginForm.get('username')?.errors?.['required']">
+        Email is required
+      </mat-error>
+      <mat-error *ngIf="loginForm.get('username')?.errors?.['email'] || loginForm.get('username')?.errors?.['pattern']">
+        Please enter a valid email address
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="login-field">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" placeholder="Enter your password" />
+      <mat-error *ngIf="loginForm.get('password')?.errors?.['required']">
+        Password is required
+      </mat-error>
+      <mat-error *ngIf="loginForm.get('password')?.errors?.['minlength']">
+        Password must be at least 6 characters
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" class="login-btn" 
+            [disabled]="!loginForm.valid || isLoading">
+      <span *ngIf="!isLoading">Login</span>
+      <mat-spinner *ngIf="isLoading" diameter="20" class="spinner"></mat-spinner>
+    </button>
+    <button mat-raised-button color="primary" class="login-btn" 
+            type="button" 
+            (click)="openSignupDialog()">Signup</button>
+  </form>
 </div>  

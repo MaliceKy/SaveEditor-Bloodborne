@@ -24,6 +24,7 @@
     -webkit-backdrop-filter: blur(7px);
     overflow: hidden;
     transition: .5s all;
+    position: relative;
 }
 
 h2 {
@@ -96,4 +97,32 @@ h2 {
     border: 1px solid #ffffff22 !important;
     border-radius: 10px !important;
     color: #141414 !important;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    z-index: 1000;
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .close-button {
+        display: block;
+    }
+}
+
+.close-button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+::ng-deep .close-button .mat-icon {
+    font-size: 24px;
+}
+
+// Add this to your styles to make the backdrop more visible
+::ng-deep .cdk-overlay-backdrop {
+  background-color: rgba(0, 0, 0, 0.479) !important;
 }

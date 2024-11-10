@@ -10,6 +10,7 @@ import { passwordMatchValidator, PasswordStrengthValidator } from './password-va
 import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-signup',
@@ -21,7 +22,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatInputModule,
     MatButtonModule,
     ReactiveFormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatIconModule
   ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
@@ -41,7 +43,7 @@ export class SignupComponent {
 
   constructor(
     private dialog: MatDialog,
-    private dialogRef: MatDialogRef<SignupComponent>,
+    public dialogRef: MatDialogRef<SignupComponent>,
     private loginService: LoginService,
     private router: Router
   ) {}
