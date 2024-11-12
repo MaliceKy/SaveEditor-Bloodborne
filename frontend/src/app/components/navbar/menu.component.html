@@ -6,6 +6,13 @@
     <button id="home-button" mat-button routerLink="home" routerLinkActive="active-link">Faq</button>
     <button id="home-button" mat-button routerLink="home" routerLinkActive="active-link">Support</button>
     <button id="home-button" mat-button routerLink="home" routerLinkActive="active-link">Donate</button>
+    <button *ngIf="loginService.isLoggedIn()" 
+            id="home-button" 
+            mat-button 
+            routerLink="/dashboard" 
+            routerLinkActive="active-link">
+      Dashboard
+    </button>
     <button *ngIf="!loginService.isLoggedIn()" 
             id="home-button" 
             mat-button 
