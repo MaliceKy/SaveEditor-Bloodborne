@@ -85,14 +85,21 @@ export class LoginService {
           } else {
             this.token = "";
             this.loggedIn.next(false);
-            resolve(false);
+            reject({ status: 401, error: { message: 'Invalid credentials' } });
           }
         },
         error: (error) => {
           this.token = "";
           this.loggedIn.next(false);
-          console.error(error);
-          reject(error);
+          
+          if (error.status === 401) {
+            reject({ status: 401, error: { message: 'Invalid credentials' } });
+          } else {
+            reject({ 
+              status: error.status || 500, 
+              error: { message: 'An unexpected error occurred' } 
+            });
+          }
         }
       });
     });

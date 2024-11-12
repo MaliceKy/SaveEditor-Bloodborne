@@ -41,7 +41,7 @@ export class LoginComponent {
   });
 
   isLoading = false;
-  loginMessage = '';
+  errorMessage = '';
 
   constructor(
     private dialog: MatDialog,
@@ -66,7 +66,7 @@ export class LoginComponent {
     }
 
     this.isLoading = true;
-    this.loginMessage = '';
+    this.errorMessage = '';
 
     try {
       const success = await this.loginService.login(
@@ -77,17 +77,19 @@ export class LoginComponent {
       if (success) {
         const hasUserRole = await this.loginService.hasRole('user');
         if (hasUserRole) {
-          this.loginMessage = 'Login successful!';
           this.dialogRef.close();
           this.router.navigate(['/dashboard']);
         } else {
-          this.loginMessage = 'User role not found.';
+          this.errorMessage = 'User role not found.';
         }
-      } else {
-        this.loginMessage = 'Login failed.';
       }
-    } catch (error) {
-      this.loginMessage = 'An error occurred while logging in.';
+    } catch (error: any) {
+      if (error.status === 401) {
+        this.errorMessage = 'Invalid credentials. Please try again.';
+      } else {
+        this.errorMessage = 'An unexpected error occurred. Please try again later.';
+      }
+      console.error('Login error:', error);
     } finally {
       this.isLoading = false;
     }

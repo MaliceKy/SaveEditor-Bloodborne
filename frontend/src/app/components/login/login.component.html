@@ -27,6 +27,11 @@
       </mat-error>
     </mat-form-field>
 
+    <div *ngIf="errorMessage" class="error-message">
+      <mat-icon class="error-icon">error_outline</mat-icon>
+      {{ errorMessage }}
+    </div>
+
     <button mat-raised-button color="primary" class="login-btn" 
             [disabled]="!loginForm.valid || isLoading"
             (click)="login()">

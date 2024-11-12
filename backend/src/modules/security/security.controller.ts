@@ -69,41 +69,44 @@ export class SecurityController {
         @async
     */
     public postLogin = async (req: express.Request, res: express.Response): Promise<void> => {
-        //check body for username and password
-        return new Promise(async (resolve, reject) => {
-            const user: UserLoginModel = { username: req.body.username, password: req.body.password ,roles:this.settings.defaultRoles};
-            if (user.username == null || user.password == null || user.username.trim().length == 0 || user.password.trim().length == 0) {
-                res.status(400).send({ error: "Username and password are required" });
-            } else {
-                try {
-                    let result = await this.mongoDBService.connect();
-                    if (!result) {
-                        res.status(500).send({ error: "Database connection failed" });
-                        return;
-                    }
-                    let dbUser: UserLoginModel | null = await this.mongoDBService.findOne(this.settings.database, this.settings.collection, { username: user.username });
-                    if (!dbUser) {
-                        throw { error: "User not found" };
-                    }
-                    bcrypt.compare(user.password, dbUser.password, (err, result) => {
-                        if (err) {
-                            res.send({ error: "Password comparison failed" });
-                        } else if (result) {
-                            dbUser.password = "****";
-                            res.send({ token: this.makeToken(dbUser) });
-                        } else {
-                            res.send({ error: "Password does not match" });
-                        }
-                    });
-                } catch (err) {
-                    console.error(err);
-                    res.status(500).send(err);
-                } finally {
-                    this.mongoDBService.close();
-                    resolve();
-                }
+        let connection = false;
+        try {
+            if (!req.body.username || !req.body.password || 
+                req.body.username.trim().length === 0 || 
+                req.body.password.trim().length === 0) {
+                res.status(400).send({ message: "Username and password are required" });
+                return;
             }
-        });
+
+            connection = await this.mongoDBService.connect();
+            if (!connection) {
+                res.status(500).send({ message: "Database connection failed" });
+                return;
+            }
+
+            const dbUser = await this.mongoDBService.findOne<UserLoginModel>(
+                this.settings.database, 
+                this.settings.collection, 
+                { username: req.body.username.toLowerCase() }
+            );
+
+            // User not found or wrong password - return same message for both
+            if (!dbUser || !(await bcrypt.compare(req.body.password, dbUser.password))) {
+                res.status(401).send({ message: "Invalid credentials" });
+                return;
+            }
+
+            const userForToken = { ...dbUser, password: "****" };
+            res.status(200).send({ token: this.makeToken(userForToken) });
+
+        } catch (err) {
+            console.error("Login error:", err);
+            res.status(500).send({ message: "An unexpected error occurred" });
+        } finally {
+            if (connection) {
+                await this.mongoDBService.close();
+            }
+        }
     }
 
     /* postRegister(req: express.Request, res: express.Response): Promise<void>

@@ -28,11 +28,20 @@ export class MongoDBService {
 	}
 	public async findOne<T>(database: string, collection: string, query: any): Promise<T | null> {
 		try {
+			if (!this.client) {
+				throw new Error("Database client not initialized");
+			}
+
 			const result = await this.client.db(database).collection(collection).findOne(query);
+			
+			if (!result) {
+				return null;
+			}
+			
 			return result as T;
 		} catch (err) {
-			console.error("Error finding document in " + collection + ":", err)
-			return null;
+			console.error("MongoDB findOne error:", err);
+			throw err;
 		}
 	}
 	public async count(database: string, collection: string, query: any): Promise<number> {
