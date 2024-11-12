@@ -1,9 +1,9 @@
 #home-container {
     position: relative;
     width: 100%;
-    background-color: #141414;
     height: 100%;
     margin-top: 70px;
+    background: transparent;
 }
 
 .no-underline {
@@ -17,6 +17,7 @@
     margin-top: 0;
     top:0;
     overflow: hidden;
+    background-color: transparent;
 }
 
 .uploadsvg {
@@ -50,12 +51,17 @@
     justify-content: center;
     align-items: center;
     z-index: 3;
+    background: transparent !important;
+    isolation: isolate;
 }
 
 .BB-Text-Logo {
     width: 500px;
     max-width: 90vw;
     user-select: none;
+    filter: brightness(1.2);
+    -webkit-filter: brightness(1.2);
+    background: transparent !important;
 }
 
 #socials-container {
