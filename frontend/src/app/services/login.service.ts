@@ -107,6 +107,9 @@ export class LoginService {
 
   public logout(): void {
     this.token = '';
+    localStorage.removeItem('token');
+    this.loggedIn.next(false);
+    this._router.navigate(['/home']);
   }
 
   public async register(username: string, password: string): Promise<boolean> {
@@ -125,5 +128,9 @@ export class LoginService {
     } catch (error) {
       throw error;
     }
+  }
+
+  public isLoggedIn(): boolean {
+    return this.token.length > 0;
   }
 }
