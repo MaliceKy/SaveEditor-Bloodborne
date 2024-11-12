@@ -1,3 +1,23 @@
+.dashboard-container, 
+#dashboard, 
+.dashboard-header, 
+.cards-container, 
+.info-card, 
+.upload-card,
+h2, h3, p, li {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+img {
+    -webkit-user-drag: none;
+    -moz-user-drag: none;
+    -ms-user-drag: none;
+    pointer-events: none;
+}
+
 .dashboard-container {
     min-height: calc(100vh - 70px);
     width: 100%;
