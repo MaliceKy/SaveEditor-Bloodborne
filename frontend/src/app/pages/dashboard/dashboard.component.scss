@@ -1,82 +1,158 @@
 .dashboard-container {
-    display: flex;
-    justify-content: center;
-    background-color: #141414;
-    height: 100vh;
-    width: 100vw;  
-    margin: 0;
-    padding: 0;
+    min-height: calc(100vh - 70px);
+    width: 100%;
     margin-top: 70px;
-}  
-
-#dashboard{
-    margin-top: 20px;
-    width: 98vw;
-    height: 25vh;
-    border-radius: 20px;
-    padding: 20px;
-}
-
-#upload-card-container{
-    display: flex;
-    justify-content: flex-end;
-}
-
-#upload-card {
-    justify-content: flex-end;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 49vw;
-    height: 25vh;
-    border-radius: 20px;
-    //border-top-right-radius: 20px;
-    //border-bottom-right-radius: 20px;
-    cursor: pointer;
-    background-color: #1d1d1d;
-    transition: 0.3s;
-}
-
-#upload-card:hover {
-    background-color: #2d2d2d;
-}
-
-#upload-card:hover .uploadsvg {
-    animation: bounce 0.6s; /* Apply the bounce animation on hover */
-}
-
-.uploadsvg{
-    height: 100%;
-    max-height: 50px;
-    width: auto;
-    margin-bottom: 20px;
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0); /* No movement at these keyframes */
-    }
-    40% {
-        transform: translateY(-15px); /* Move up */
-    }
-    60% {
-        transform: translateY(-7px); /* Move slightly up */
-    }
-}
-
-#upload-save-text, #upload-save-desc{
-    font-family: 'Fleshandblood', sans-serif;
+    background-color: #141414;
     color: white;
+    padding: 2rem;
 }
 
-#instructions-upload-card{
-    justify-content: flex-end;
+#dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.dashboard-header {
+    text-align: center;
+    margin-bottom: 3rem;
+
+    h2 {
+        font-family: 'Fleshandblood', sans-serif;
+        font-size: 3rem;
+        color: white;
+        margin-bottom: 1rem;
+    }
+
+    .subtitle {
+        font-size: 1.2rem;
+        color: #84C0C6;
+        opacity: 0.9;
+    }
+}
+
+.cards-container {
     display: flex;
-    flex-direction: column;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.info-card, .upload-card {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+    min-height: 300px;
+    border-radius: 20px;
+    background: linear-gradient(0deg, rgba(41, 41, 41, 0.8) 0%, rgba(107, 124, 142, 0.5) 100%);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    border: 1px solid #ffffff22;
+    box-shadow: 0 7px 20px 5px #00000088;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+.info-card {
+    padding: 2rem;
+
+    h3 {
+        font-family: 'Fleshandblood', sans-serif;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        color: #84C0C6;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+
+            &:before {
+                content: '•';
+                color: #84C0C6;
+                position: absolute;
+                left: 0;
+            }
+        }
+    }
+}
+
+.upload-card {
+    position: relative;
+    cursor: pointer;
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 49vw;
-    height: 25vh;
-    padding: 20px;
+    text-align: center;
+    padding: 2rem;
+
+    &:hover {
+        border-color: #84C0C6;
+        box-shadow: 0 0 15px #84C0C6;
+
+        .upload-icon {
+            transform: translateY(-10px);
+        }
+
+        .hover-effect {
+            opacity: 1;
+        }
+    }
+
+    .card-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    h3 {
+        font-family: 'Fleshandblood', sans-serif;
+        font-size: 1.5rem;
+        margin: 1rem 0;
+        color: #84C0C6;
+    }
+
+    p {
+        color: #ffffff99;
+    }
+
+    .upload-icon {
+        width: 64px;
+        height: 64px;
+        margin-bottom: 1rem;
+        transition: transform 0.3s ease;
+    }
+
+    .hover-effect {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(circle at center, rgba(132, 192, 198, 0.1) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 1rem;
+    }
+
+    #dashboard {
+        padding: 1rem;
+    }
+
+    .cards-container {
+        flex-direction: column;
+    }
+
+    .info-card, .upload-card {
+        max-width: 100%;
+    }
 }

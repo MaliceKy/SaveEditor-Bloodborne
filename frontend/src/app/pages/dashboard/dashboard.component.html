@@ -1,14 +1,29 @@
 <div class="dashboard-container">
     <div id="dashboard">
-        <div id="upload-card-container">
-            <div id="instructions-upload-card">
-                <h3 id="upload-save-text">Bloodborne Save Info</h3>
-                <p id="upload-save-desc">You must decrypt the save file before you can edit it. Unless you are using a save from ShadPS4.</p>
+        <div class="dashboard-header">
+            <h2>Dashboard</h2>
+            <p class="subtitle">Welcome, Hunter. Your journey begins here.</p>
+        </div>
+
+        <div class="cards-container">
+            <div class="info-card">
+                <div class="card-content">
+                    <h3>Save File Requirements</h3>
+                    <ul>
+                        <li>Must be decrypted unless using ShadPS4</li>
+                        <li>File name must be "userdata0000"</li>
+                        <li>Maximum file size: 32MB</li>
+                    </ul>
+                </div>
             </div>
-            <div id="upload-card">
-                <img src="../../assets/upload-logo.svg" alt="upload-icon" class="uploadsvg" />
-                <h3 id="upload-save-text">Upload Save</h3>
-                <p id="upload-save-desc">upload userdata0000 file here</p>
+
+            <div class="upload-card" >
+                <div class="card-content">
+                    <img src="../../assets/upload-logo.svg" alt="upload-icon" class="upload-icon" />
+                    <h3>Upload Save File</h3>
+                    <p>Click or drag & drop your save file here</p>
+                </div>
+                <div class="hover-effect"></div>
             </div>
         </div>
     </div>
