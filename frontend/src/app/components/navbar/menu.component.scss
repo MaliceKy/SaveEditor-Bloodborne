@@ -53,4 +53,12 @@ mat-toolbar {
     button:hover {
         background-color: #232323;
     }
+
+    .vertical-divider {
+        height: 30px; // Adjust height as needed
+        width: 1px;
+        background-color: #84C0C6; // Using your theme color
+        margin: 0 15px; // Adjust spacing as needed
+        opacity: 0.5; // Makes it slightly subtle
+    }
 }
