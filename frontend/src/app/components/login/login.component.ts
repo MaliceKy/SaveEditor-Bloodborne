@@ -8,6 +8,8 @@ import { SignupComponent } from '../signup/signup.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -39,10 +41,13 @@ export class LoginComponent {
   });
 
   isLoading = false;
-  
+  loginMessage = '';
+
   constructor(
     private dialog: MatDialog,
-    public dialogRef: MatDialogRef<SignupComponent>
+    public dialogRef: MatDialogRef<SignupComponent>,
+    private loginService: LoginService,
+    private router: Router
   ) {}
 
   openSignupDialog() {
@@ -53,5 +58,38 @@ export class LoginComponent {
       autoFocus: true,
       backdropClass: 'backdrop-blur'
     });
+  }
+
+  async login() {
+    if (!this.loginForm.valid) {
+      return;
+    }
+
+    this.isLoading = true;
+    this.loginMessage = '';
+
+    try {
+      const success = await this.loginService.login(
+        this.loginForm.value.username.toLowerCase(),
+        this.loginForm.value.password
+      );
+
+      if (success) {
+        const hasUserRole = await this.loginService.hasRole('user');
+        if (hasUserRole) {
+          this.loginMessage = 'Login successful!';
+          this.dialogRef.close();
+          this.router.navigate(['/dashboard']);
+        } else {
+          this.loginMessage = 'User role not found.';
+        }
+      } else {
+        this.loginMessage = 'Login failed.';
+      }
+    } catch (error) {
+      this.loginMessage = 'An error occurred while logging in.';
+    } finally {
+      this.isLoading = false;
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Config } from '../config';
 import { ReplaySubject } from 'rxjs';
@@ -28,9 +28,19 @@ export class LoginService {
 
   public loggedIn: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
 
-  public async hasRole(role:string): Promise<boolean> {
+  private getHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`,
+      'Content-Type': 'application/json'
+    });
+  }
+
+  public async hasRole(role: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      this.httpClient.get<UserLoginModel>(Config.apiBaseUrl + `/security/user`).subscribe({
+      this.httpClient.get<UserLoginModel>(
+        Config.apiBaseUrl + `/security/user`,
+        { headers: this.getHeaders() }
+      ).subscribe({
         next: (response) => {
           if (response.roles)
             resolve(response.roles.indexOf(role) >= 0);
@@ -46,7 +56,10 @@ export class LoginService {
 
   public async authorize(): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      this.httpClient.get<TokenResponseObject>(Config.apiBaseUrl + '/security/authorize').subscribe({
+      this.httpClient.get<TokenResponseObject>(
+        Config.apiBaseUrl + '/security/authorize',
+        { headers: this.getHeaders() }
+      ).subscribe({
         next: (response) => {
           this.token = response.token;
           resolve(response.token.length > 0);
@@ -55,23 +68,29 @@ export class LoginService {
           reject(error);
         }
       });
-    }); 
+    });
   }
 
   public login(username: string, password: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      this.httpClient.post<TokenResponseObject>(Config.apiBaseUrl+"/security/login", { username: username, password: password }).subscribe({
+      this.httpClient.post<TokenResponseObject>(
+        Config.apiBaseUrl + "/security/login",
+        { username: username, password: password }
+      ).subscribe({
         next: (response) => {
           if (response.token && response.token.length > 0) {
-            this.token = response.token
+            this.token = response.token;
+            this.loggedIn.next(true);
             resolve(true);
           } else {
             this.token = "";
+            this.loggedIn.next(false);
             resolve(false);
           }
         },
         error: (error) => {
-          this.token="";
+          this.token = "";
+          this.loggedIn.next(false);
           console.error(error);
           reject(error);
         }

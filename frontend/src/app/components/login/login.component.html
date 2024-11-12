@@ -28,7 +28,8 @@
     </mat-form-field>
 
     <button mat-raised-button color="primary" class="login-btn" 
-            [disabled]="!loginForm.valid || isLoading">
+            [disabled]="!loginForm.valid || isLoading"
+            (click)="login()">
       <span *ngIf="!isLoading">Login</span>
       <mat-spinner *ngIf="isLoading" diameter="20" class="spinner"></mat-spinner>
     </button>
