@@ -3,12 +3,14 @@ import { LoginService } from "./services/login.service";
 import { inject } from "@angular/core";
 
 export function authInterceptor(req: HttpRequest<unknown>, next: HttpHandlerFn) {
-	// Inject the current `AuthService` and use it to get an authentication token:
-	const authToken = inject(LoginService).token;
-	// Clone the request to add the authentication header.
-	if (authToken.length > 0) {
+	const loginService = inject(LoginService);
+	const token = loginService.token;
+	
+	if (token && token.length > 0) {
 		const newReq = req.clone({
-			headers: req.headers.append('Authorization', authToken),
+			setHeaders: {
+				Authorization: `Bearer ${token}`
+			}
 		});
 		return next(newReq);
 	} else {
