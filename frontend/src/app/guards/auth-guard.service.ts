@@ -15,12 +15,12 @@ export class AuthGuardService implements CanActivate {
         if (res) {
           resolve(true);
         } else {
-          this._router.navigate(['/login']);
+          this._router.navigate(['/home']);
           resolve(false);
         }
       }).catch((err) => {
         console.error(err);
-        this._router.navigate(['/login']);
+        this._router.navigate(['/home']);
         resolve(false);
       });
     });
